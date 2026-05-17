@@ -7,11 +7,9 @@ export default function DoctorDetailsPage({ params }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [doctor, setDoctor] = useState(null);
   
-  // Next.js-এর নতুন Promise বেসড params আনর‍্যাপ করার অফিশিয়াল নিয়ম
   const unwrappedParams = use(params);
   const doctorId = unwrappedParams.id;
 
-  // ১০ জন ডক্টরের ডাটাবেজ
   const allDoctors = [
     {
       id: "d1",
@@ -155,22 +153,20 @@ export default function DoctorDetailsPage({ params }) {
     }
   ];
 
-  // আইডি ট্র্যাকিং করে রিয়েল-টাইমে ডক্টর অবজেক্ট স্টেট-এ সেট করা
   useEffect(() => {
     if (doctorId) {
-      // URL-এর আইডি "d1" নাকি "doc1" সেটি নিখুঁতভাবে হ্যান্ডেল করার চেক
       const normalizedId = doctorId.startsWith('doc') ? doctorId.replace('doc', 'd') : doctorId;
       const foundDoctor = allDoctors.find(doc => doc.id === normalizedId);
       
       if (foundDoctor) {
         setDoctor(foundDoctor);
       } else {
-        setDoctor(allDoctors[0]); // ডিফেন্সিভ ফলব্যাক
+        setDoctor(allDoctors[0]); 
       }
     }
   }, [doctorId]);
 
-  // ডাটা ম্যাচ হওয়ার আগ পর্যন্ত লোডিং বাবল দেখানো
+  
   if (!doctor) {
     return (
       <div className="min-h-screen bg-[#1a1025] flex items-center justify-center">
@@ -184,7 +180,6 @@ export default function DoctorDetailsPage({ params }) {
       <div className="max-w-5xl mx-auto bg-[#0f0918]/80 border-2 border-[#b534e6]/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.6)] backdrop-blur-xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 md:p-12">
           
-          {/* ইমেজ সেকশন */}
           <div className="relative group rounded-2xl overflow-hidden border border-[#b534e6]/40 h-[380px] md:h-[420px] bg-[#0f0918]">
             <img 
               src={doctor.image} 
@@ -194,7 +189,6 @@ export default function DoctorDetailsPage({ params }) {
             <div className="absolute inset-0 bg-gradient-to-t from-[#0f0918] via-transparent to-transparent" />
           </div>
 
-          {/* ইনফরমেশন সেকশন */}
           <div className="flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <span className="px-3 py-1 bg-[#36f9f6]/10 border border-[#36f9f6]/40 text-[#36f9f6] text-xs font-black tracking-widest uppercase rounded-md shadow-[0_0_10px_rgba(54,249,246,0.2)] inline-block">
@@ -236,7 +230,6 @@ export default function DoctorDetailsPage({ params }) {
               </div>
             </div>
 
-            {/* ফি এবং অ্যাপয়েন্টমেন্ট বাটন */}
             <div className="flex items-center justify-between pt-6 border-t border-[#b534e6]/30">
               <div>
                 <p className="text-[10px] text-gray-400 font-black uppercase tracking-wider">Consultation Fee</p>
@@ -254,7 +247,7 @@ export default function DoctorDetailsPage({ params }) {
         </div>
       </div>
 
-      {/* মডাল উইন্ডো */}
+     
       {isModalOpen && <BookingModal doctor={doctor} onClose={() => setIsModalOpen(false)} />}
     </div>
   );

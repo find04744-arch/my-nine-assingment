@@ -37,8 +37,9 @@ export default function RegisterPage() {
           <span className="relative bg-[#0f0918] px-3 text-xs text-gray-400 font-bold uppercase tracking-wider">or sign up with</span>
         </div>
 
+        {/* এখানেও Chrome বদলে ChromeIcon করে দেওয়া হয়েছে */}
         <button className="w-full py-3 bg-[#1a1025] border border-gray-500 rounded-xl flex items-center justify-center space-x-2 text-sm font-bold text-gray-200 hover:border-[#36f9f6] transition-colors">
-          <Chrome className="w-4 h-4 text-[#36f9f6]" />
+          <ChromeIcon className="w-4 h-4 text-[#36f9f6]" />
           <span>Sign up with Google</span>
         </button>
 

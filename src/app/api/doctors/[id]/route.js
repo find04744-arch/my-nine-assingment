@@ -6,7 +6,7 @@ export async function GET(request, { params }) {
   try {
     await dbConnect();
     
-    // Next.js 13/14/15 প্রমিজ হ্যান্ডেলিং নিয়ম
+    
     const unwrappedParams = await params;
     const { id } = unwrappedParams;
 

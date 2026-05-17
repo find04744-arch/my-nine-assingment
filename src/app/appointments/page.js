@@ -27,7 +27,6 @@ export default function AllAppointmentsPage() {
     <div className="min-h-screen bg-[#1a1025] text-white pt-24 pb-16 px-6 sm:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto space-y-12">
         
-        {/* জমকালো হেডার */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-6xl font-black tracking-tight">
             Available <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#36f9f6] via-[#ff7edb] to-[#fede5d] neon-text-cyan">Appointments</span>
@@ -37,7 +36,6 @@ export default function AllAppointmentsPage() {
           </p>
         </div>
 
-        {/* 🔍 সার্চ বার সেকশন */}
         <div className="max-w-xl mx-auto relative group">
           <input 
             type="text" 
@@ -52,7 +50,6 @@ export default function AllAppointmentsPage() {
           </button>
         </div>
 
-        {/* ডক্টর গ্রিড */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredDoctors.map((doc) => (
             <div key={doc.id} className="group relative bg-[#1a1025]/90 backdrop-blur-md rounded-2xl border border-[#b534e6]/40 overflow-hidden hover:border-[#36f9f6] hover:shadow-[0_0_25px_rgba(54,249,246,0.3)] hover:scale-[1.02] transition-all duration-500 flex flex-col justify-between">

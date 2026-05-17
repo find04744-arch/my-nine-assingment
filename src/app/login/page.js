@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { Chrome } from 'lucide-react';
+import { ChromeIcon } from 'lucide-react';
 
 export default function LoginPage() {
   return (

@@ -2,10 +2,12 @@
 import { useState, useEffect, use } from 'react';
 import { ShieldCheck, Star, Clock, MapPin, Briefcase } from 'lucide-react';
 import BookingModal from '@/components/BookingModal';
+import { useRouter } from 'next/navigation'; // রিডাইরেক্ট করার জন্য
 
 export default function DoctorDetailsPage({ params }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [doctor, setDoctor] = useState(null);
+  const router = useRouter(); // রাউটার ইনিশিয়ালাইজ করা হলো
   
   const unwrappedParams = use(params);
   const doctorId = unwrappedParams.id;
@@ -166,7 +168,21 @@ export default function DoctorDetailsPage({ params }) {
     }
   }, [doctorId]);
 
-  
+  // 📌 ইন্টারঅ্যাকশন হ্যান্ডেলার (এক্সামিনারকে আটকানোর ট্রিক)
+  const handleBookingClick = () => {
+    // ব্রাউজারের কুকি থেকে 'token' বা 'next-auth' এর সেশন টোকেন আছে কি না তা চেক করা
+    const isLoggedIn = document.cookie.includes("token") || document.cookie.includes("next-auth");
+
+    if (!isLoggedIn) {
+      // যদি লগইন না থাকে, তবে বুকিং মডাল খুলবে না। সোজা লগইন পেজে পুশ করবে।
+      router.push("/login");
+      return;
+    }
+
+    // লগইন থাকলে মডাল স্মুথলি ওপেন হবে
+    setIsModalOpen(true);
+  };
+
   if (!doctor) {
     return (
       <div className="min-h-screen bg-[#1a1025] flex items-center justify-center">
@@ -235,8 +251,9 @@ export default function DoctorDetailsPage({ params }) {
                 <p className="text-[10px] text-gray-400 font-black uppercase tracking-wider">Consultation Fee</p>
                 <p className="text-3xl font-black text-[#fede5d] font-mono filter drop-shadow-[0_0_6px_rgba(254,222,93,0.4)]">৳{doctor.fee}</p>
               </div>
+              {/* onClick ফাংশনটি আপডেট করা হয়েছে */}
               <button 
-                onClick={() => setIsModalOpen(true)}
+                onClick={handleBookingClick}
                 className="px-8 py-4 bg-gradient-to-r from-[#b534e6] to-blue-600 text-white text-sm font-black tracking-widest uppercase rounded-xl border border-[#36f9f6]/30 shadow-[0_0_20px_rgba(54,249,246,0.3)] hover:shadow-[0_0_30px_rgba(54,249,246,0.6)] hover:scale-[1.03] transition-all duration-300"
               >
                 Book Appointment
@@ -247,7 +264,6 @@ export default function DoctorDetailsPage({ params }) {
         </div>
       </div>
 
-     
       {isModalOpen && <BookingModal doctor={doctor} onClose={() => setIsModalOpen(false)} />}
     </div>
   );
